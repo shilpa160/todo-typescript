@@ -5,7 +5,6 @@ import { ITask } from "./Interfaces";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
-
   const [todo, setTodo] = useState<ITask[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -19,15 +18,14 @@ const App: FC = () => {
       taskName: task,
     };
     setTodo([...todo, newTask]);
+    // ... is rest operator which let newTask values to be added in todo array
     setTask("");
   };
 
   const completeTask = (taskNameToDelete: string): void => {
-    setTodo(
-      todo.filter((task) => {
-        return task.taskName != taskNameToDelete;
-      })
-    );
+    let todoo = todo.filter((task) => task.taskName != taskNameToDelete);
+    setTodo(todoo);
+    
   };
 
   return (
@@ -36,7 +34,9 @@ const App: FC = () => {
         <h1>Todo App</h1>
       </div>
       <div className="header">
+     
         <div className="inputContainer">
+          
           <input
             type="text"
             placeholder="Task..."
@@ -45,9 +45,12 @@ const App: FC = () => {
             onChange={handleChange}
             required
           />
+         
         </div>
         <button onClick={addTask}>Add todo</button>
+        
       </div>
+     
       <div className="todoList">
         {todo.map((task: ITask, key: number) => {
           return <TodoTask key={key} task={task} completeTask={completeTask} />;
