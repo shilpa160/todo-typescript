@@ -4,26 +4,25 @@ import TodoTask from "./Components/TodoTask";
 import { ITask } from "./Interfaces";
 
 const App: FC = () => {
-  const [task, setTask] = useState<string>("");
+  const [taskName, setTaskName] = useState<string>("");
   const [todo, setTodo] = useState<ITask[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.name === "task") {
-      setTask(event.target.value);
+     //I guess this check is not required as this is not a reutilizing function
+    if (event.target.name === "taskName") {
+      setTaskName(event.target.value);
     }
   };
 
   const addTask = (): void => {
-    const newTask = {
-      taskName: task,
-    };
-    setTodo([...todo, newTask]);
+
+    setTodo([...todo, taskName]);
     // ... is rest operator which let newTask values to be added in todo array
-    setTask("");
+    setTaskName("");
   };
 
   const completeTask = (taskNameToDelete: string): void => {
-    let todoo = todo.filter((task) => task.taskName != taskNameToDelete);
+    let todoo = todo.filter((taskName) => taskName != taskNameToDelete);
     setTodo(todoo);
     
   };
@@ -40,8 +39,8 @@ const App: FC = () => {
           <input
             type="text"
             placeholder="Task..."
-            name="task"
-            value={task}
+            name="taskName"
+            value={taskName}
             onChange={handleChange}
             required
           />
